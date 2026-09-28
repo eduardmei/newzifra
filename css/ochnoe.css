@@ -1,0 +1,271 @@
+/* ---------- Очное отделение ---------- */
+
+.dept-page {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 100%;
+  padding: 28px max(28px, env(safe-area-inset-right, 0px)) 96px max(28px, env(safe-area-inset-left, 0px));
+  overflow-x: clip;
+  box-sizing: border-box;
+}
+
+.dept-page__inner {
+  width: 100%;
+  max-width: 1180px;
+  min-width: 0;
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(48px, 7vw, 88px);
+}
+
+.dept-page__inner > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.dept-heads,
+.dept-docs,
+.dept-programs {
+  display: grid;
+  gap: 22px;
+}
+
+.dept-programs .about-title {
+  max-width: 28ch;
+}
+
+.dept-docs__subhead {
+  margin: 10px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--heading);
+}
+
+.dept-heads__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.dept-heads__grid--single {
+  grid-template-columns: minmax(0, 560px);
+}
+
+.dept-card {
+  display: grid;
+  grid-template-columns: minmax(160px, 220px) minmax(0, 1fr);
+  flex: none;
+  width: auto;
+  min-height: 280px;
+  height: auto;
+  max-height: none;
+  padding-left: 20px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: var(--card-grad);
+  overflow: hidden;
+  touch-action: auto;
+}
+
+.dept-card .team-slide__photo {
+  min-height: 260px;
+  height: 100%;
+}
+
+.dept-card .team-slide__photo img {
+  transform: scale(1.08) translateY(4%);
+  filter: none;
+}
+
+.dept-card .team-slide__photo::before,
+.dept-card .team-slide__photo::after {
+  opacity: 0;
+}
+
+.dept-card .team-slide__info {
+  padding: 24px 22px 24px 20px;
+  overflow: visible;
+}
+
+.dept-card .team-slide__info h3 {
+  max-width: none;
+}
+
+.dept-card .team-slide__surname {
+  font-size: clamp(20px, 2.2vw, 26px);
+}
+
+.dept-card .team-slide__role {
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  border-radius: 14px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.dept-card__contacts {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.dept-card__contacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  max-width: 100%;
+  color: var(--cream);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+}
+
+.dept-card__contacts a svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.72;
+}
+
+.dept-card__contacts a:hover {
+  color: var(--cream);
+}
+
+.dept-docs__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.dept-doc {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--nav-glass-border);
+  background:
+    linear-gradient(135deg, var(--nav-glass-sheen) 0%, transparent 55%),
+    var(--nav-glass);
+  backdrop-filter: blur(18px) saturate(1.8);
+  -webkit-backdrop-filter: blur(18px) saturate(1.8);
+  box-shadow:
+    inset 0 1px 0 var(--nav-glass-highlight),
+    var(--nav-glass-shadow);
+  color: var(--text-soft);
+  transition:
+    color 0.22s ease,
+    background 0.22s ease,
+    border-color 0.22s ease,
+    transform 0.22s ease;
+}
+
+.dept-doc:hover {
+  color: var(--cream);
+  background:
+    linear-gradient(135deg, var(--nav-glass-sheen-hover) 0%, transparent 58%),
+    var(--nav-glass-hover);
+  transform: translateY(-2px);
+}
+
+.dept-doc__icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--magenta) 22%, var(--fill-soft));
+  color: var(--magenta);
+}
+
+.dept-doc__icon svg {
+  width: 17px;
+  height: 17px;
+  display: block;
+}
+
+.dept-doc__icon path,
+.dept-doc__icon polyline,
+.dept-doc__icon line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dept-doc__title {
+  min-width: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+
+.dept-doc__meta {
+  flex: 0 0 auto;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .dept-heads__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dept-card {
+    grid-template-columns: minmax(140px, 180px) minmax(0, 1fr);
+    min-height: 240px;
+  }
+
+  .dept-docs__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .dept-page {
+    padding: 20px max(16px, env(safe-area-inset-right, 0px)) 72px max(16px, env(safe-area-inset-left, 0px));
+  }
+
+  .dept-card {
+    grid-template-columns: 1fr;
+    padding-left: 0;
+  }
+
+  .dept-card .team-slide__photo {
+    min-height: 280px;
+    justify-content: center;
+  }
+
+  .dept-card .team-slide__info {
+    padding: 18px 18px 22px;
+  }
+
+  .dept-doc {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .dept-doc__meta {
+    grid-column: 2;
+  }
+}

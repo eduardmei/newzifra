@@ -1,0 +1,166 @@
+/* ---------- Целевое обучение ---------- */
+
+.celevoe-hero,
+.celevoe-guide {
+  display: grid;
+  gap: 22px;
+}
+
+.celevoe-hero__lead,
+.celevoe-guide__lead {
+  margin: 18px 0 0;
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: clamp(15px, 1.6vw, 17px);
+  line-height: 1.5;
+}
+
+.celevoe-hero__banner {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+}
+
+.celevoe-hero__banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+}
+
+.celevoe-guide__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+#celevoe-head .celevoe-guide__grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.celevoe-page-card {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.celevoe-page-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+  background: var(--card-hover);
+}
+
+.celevoe-page-card:focus-visible {
+  outline: 0;
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(62, 199, 255, 0.28);
+}
+
+.celevoe-page-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1772 / 2560;
+  object-fit: cover;
+  object-position: top center;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.celevoe-page-card__badge {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+#celevoeLightbox .achievement-lightbox-content {
+  width: min(720px, 100%);
+  margin-inline: auto;
+}
+
+#celevoeLightbox .achievement-lightbox-content img {
+  max-height: 82vh;
+}
+
+@media (max-width: 1100px) {
+  .celevoe-guide__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #celevoe-head .celevoe-guide__grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .celevoe-guide__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  #celevoe-head .celevoe-guide__grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(140px, 1fr);
+    grid-template-columns: none;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #celevoe-head .celevoe-page-card {
+    scroll-snap-align: start;
+  }
+
+  .celevoe-page-card {
+    border-radius: 14px;
+  }
+
+  .celevoe-hero__banner {
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 520px) {
+  .celevoe-guide__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #celevoe-head .celevoe-guide__grid {
+    grid-auto-columns: minmax(160px, 72vw);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .celevoe-page-card:active {
+    border-radius: 16px;
+    box-shadow: 0 0 0 6px var(--tap-glow);
+  }
+}

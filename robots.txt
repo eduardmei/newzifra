@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Для корректной индексации укажите абсолютный URL sitemap на production:
+# Sitemap: https://zifra42.ru/sitemap.php
+# Локально / подпапка:
+Sitemap: http://localhost/newzifra/sitemap.php

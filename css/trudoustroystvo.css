@@ -1,0 +1,418 @@
+/* ---------- Практика и трудоустройство ---------- */
+
+.trud-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.trud-intro .dept-card {
+  min-width: 0;
+  height: 100%;
+}
+
+.trud-jump {
+  display: grid;
+  gap: 14px;
+  align-content: stretch;
+  min-width: 0;
+}
+
+.trud-jump__label {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.trud-jump__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  height: 100%;
+  align-content: stretch;
+}
+
+.trud-jump__list > li {
+  min-width: 0;
+  display: flex;
+}
+
+.trud-jump__btn {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 6px;
+  width: 100%;
+  min-height: 128px;
+  padding: 16px 14px 14px;
+  padding-right: 42px;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--magenta) 28%, var(--line));
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--magenta) 16%, transparent), transparent 42%),
+    linear-gradient(200deg, color-mix(in srgb, var(--cyan) 12%, transparent), transparent 46%),
+    color-mix(in srgb, var(--panel) 88%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 12%, transparent),
+    0 12px 28px color-mix(in srgb, var(--magenta) 12%, transparent);
+  color: var(--cream);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    filter 0.22s ease;
+}
+
+.trud-jump__btn::before {
+  content: "";
+  position: absolute;
+  inset: auto -20% -40% auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--cyan) 28%, transparent), transparent 70%);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.trud-jump__btn:hover {
+  transform: translateY(-3px) scale(1.01);
+  border-color: color-mix(in srgb, var(--cyan) 45%, var(--line-strong));
+  filter: brightness(1.04);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 16%, transparent),
+    0 16px 34px color-mix(in srgb, var(--magenta) 22%, transparent);
+}
+
+.trud-jump__btn:hover::before {
+  opacity: 0.9;
+  transform: translate(-8px, -10px) scale(1.1);
+}
+
+.trud-jump__btn:focus-visible {
+  outline: 0;
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(62, 199, 255, 0.28);
+}
+
+.trud-jump__btn:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+.trud-jump__num {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: transparent;
+  background: linear-gradient(135deg, var(--magenta), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.trud-jump__title {
+  font-family: var(--font-display);
+  font-size: clamp(14px, 1.35vw, 16px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--heading);
+  overflow-wrap: anywhere;
+}
+
+.trud-jump__hint {
+  align-self: end;
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.trud-jump__go {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--cyan) 35%, var(--line));
+  background: color-mix(in srgb, var(--cyan) 14%, transparent);
+  color: var(--cream);
+  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+}
+
+.trud-jump__go svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trud-jump__btn:hover .trud-jump__go {
+  transform: translateX(2px);
+  background: color-mix(in srgb, var(--magenta) 28%, transparent);
+  border-color: color-mix(in srgb, var(--magenta) 45%, var(--line));
+}
+
+#trud-docs,
+#trud-center,
+#trud-resources,
+#trud-selfemp {
+  scroll-margin-top: calc(var(--header-h) + 20px);
+}
+
+.trud-page .dept-docs__list {
+  margin: 0;
+}
+
+.trud-promo {
+  display: grid;
+  grid-template-columns: minmax(88px, 140px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  margin-top: 8px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, #5b8cff 18%, transparent), transparent 48%),
+    var(--card-grad);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.22s ease, border-color 0.22s ease;
+}
+
+.trud-promo:hover {
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+}
+
+.trud-promo__logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.trud-promo__kicker {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.trud-promo__text {
+  margin: 0 0 12px;
+  max-width: 62ch;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.trud-promo__cta {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cyan);
+}
+
+.trud-opk {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+  margin-top: 4px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: var(--card-grad);
+}
+
+.trud-opk__logo {
+  display: block;
+  width: 100%;
+}
+
+.trud-opk__logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.trud-opk__text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.trud-opk__text a {
+  color: var(--cyan);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.trud-resources,
+.trud-selfemp,
+.trud-center {
+  display: grid;
+  gap: 22px;
+}
+
+.trud-page .dept-doc.is-placeholder {
+  opacity: 0.72;
+  cursor: default;
+}
+
+.trud-resources__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.trud-resource {
+  display: grid;
+  grid-template-rows: 72px auto;
+  gap: 10px;
+  min-height: 100%;
+  padding: 14px 12px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.trud-resource:hover {
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+}
+
+.trud-resource__logo {
+  display: grid;
+  place-items: center;
+  height: 72px;
+  padding: 6px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.trud-resource__logo img {
+  display: block;
+  max-width: 100%;
+  max-height: 56px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.trud-resource__title {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--heading);
+}
+
+.trud-selfemp__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.trud-selfemp__item {
+  display: block;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: #f4f6f8;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.trud-selfemp__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+}
+
+@media (max-width: 980px) {
+  .trud-intro {
+    grid-template-columns: 1fr;
+  }
+
+  .trud-jump__btn {
+    min-height: 112px;
+  }
+
+  .trud-opk {
+    grid-template-columns: 1fr;
+  }
+
+  .trud-opk__logo {
+    max-width: 280px;
+  }
+
+  .trud-resources__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .trud-selfemp__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trud-jump__btn,
+  .trud-jump__go {
+    transition: none;
+  }
+
+  .trud-jump__btn:hover,
+  .trud-jump__btn:hover .trud-jump__go {
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .trud-promo {
+    grid-template-columns: 1fr;
+  }
+
+  .trud-promo__logo {
+    max-width: 120px;
+  }
+
+  .trud-resources__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

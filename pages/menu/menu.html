@@ -1,0 +1,973 @@
+<style>
+  /* Scoped chrome for WP embed — prefix .zifra-wpmenu */
+  .zifra-wpmenu {
+    --zifra-bg: #050508;
+    --zifra-bg-rgb: 5, 5, 8;
+    --zifra-cream: #f4ece4;
+    --zifra-heading: #f4ece4;
+    --zifra-muted: rgba(244, 236, 228, 0.58);
+    --zifra-text-soft: rgba(244, 236, 228, 0.9);
+    --zifra-magenta: #ff3d9a;
+    --zifra-cyan: #3ec7ff;
+    --zifra-line: rgba(255, 255, 255, 0.1);
+    --zifra-line-strong: rgba(255, 255, 255, 0.28);
+    --zifra-fill-soft: rgba(255, 255, 255, 0.04);
+    --zifra-panel: rgba(12, 10, 20, 0.88);
+    --zifra-topbar-bg: rgba(5, 5, 10, 0.45);
+    --zifra-menu-bg: rgba(8, 8, 14, 0.94);
+    --zifra-shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.45);
+    --zifra-topbar-h: 42px;
+    --zifra-header-h: 124px;
+    --zifra-glass: 0;
+    --zifra-nav-glass: rgba(255, 255, 255, 0.04);
+    --zifra-nav-glass-hover: rgba(255, 255, 255, 0.1);
+    --zifra-nav-glass-border: rgba(255, 255, 255, 0.12);
+    --zifra-nav-glass-highlight: rgba(255, 255, 255, 0.16);
+    --zifra-nav-glass-sheen: rgba(255, 255, 255, 0.06);
+    --zifra-nav-glass-sheen-hover: rgba(255, 255, 255, 0.1);
+    --zifra-nav-glass-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+    --zifra-nav-glass-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    --zifra-font: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --zifra-menu-bg-image: url("https://zifra42.ru/newzifra/assets/bg_menu.png");
+    color: var(--zifra-cream);
+    font-family: var(--zifra-font);
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1000;
+    width: 100%;
+    background-color: var(--zifra-bg);
+    background-image: var(--zifra-menu-bg-image);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+
+  .zifra-wpmenu[data-theme="light"] {
+    --zifra-bg: #efe6dc;
+    --zifra-bg-rgb: 239, 230, 220;
+    --zifra-cream: #1c1714;
+    --zifra-heading: #4e453d;
+    --zifra-muted: rgba(28, 23, 20, 0.56);
+    --zifra-text-soft: rgba(28, 23, 20, 0.9);
+    --zifra-line: rgba(28, 23, 20, 0.1);
+    --zifra-line-strong: rgba(28, 23, 20, 0.22);
+    --zifra-fill-soft: rgba(28, 23, 20, 0.04);
+    --zifra-panel: rgba(255, 250, 246, 0.96);
+    --zifra-topbar-bg: rgba(255, 248, 242, 0.64);
+    --zifra-menu-bg: rgba(255, 250, 246, 0.97);
+    --zifra-shadow-lg: 0 24px 60px rgba(40, 24, 16, 0.16);
+    --zifra-nav-glass: rgba(255, 255, 255, 0.48);
+    --zifra-nav-glass-hover: rgba(255, 255, 255, 0.72);
+    --zifra-nav-glass-border: rgba(255, 255, 255, 0.72);
+    --zifra-nav-glass-highlight: rgba(255, 255, 255, 0.92);
+    --zifra-nav-glass-sheen: rgba(255, 255, 255, 0.14);
+    --zifra-nav-glass-sheen-hover: rgba(255, 255, 255, 0.2);
+    --zifra-nav-glass-shadow: 0 10px 24px rgba(40, 24, 16, 0.1);
+    --zifra-nav-glass-hover-shadow: 0 12px 28px rgba(40, 24, 16, 0.12);
+  }
+
+  .zifra-wpmenu *,
+  .zifra-wpmenu *::before,
+  .zifra-wpmenu *::after {
+    box-sizing: border-box;
+  }
+
+  .zifra-wpmenu a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .zifra-wpmenu button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .zifra-wpmenu ul {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .zifra-wpmenu li {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  .zifra-wpmenu img {
+    max-width: 100%;
+    display: block;
+    height: auto;
+  }
+
+  .zifra-wpmenu.is-menu-open {
+    /* lock scroll via body class below */
+  }
+
+  body.zifra-wpmenu-open {
+    overflow: hidden;
+  }
+
+  /* Только десктоп: на мобильных / планшетах блок скрыт целиком */
+  @media (max-width: 1520px) {
+    .zifra-wpmenu {
+      display: none !important;
+    }
+
+    body.zifra-wpmenu-open {
+      overflow: visible;
+    }
+  }
+
+  /* Topbar — без backdrop-filter: иначе поверх светлого WP получается серый «матовый» слой */
+  .zifra-wpmenu .zifra-topbar {
+    position: relative;
+    z-index: 30;
+    height: var(--zifra-topbar-h);
+    overflow-x: hidden;
+    border-bottom: 1px solid var(--zifra-line);
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .zifra-wpmenu .zifra-topbar__inner {
+    max-width: 1440px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .zifra-wpmenu .zifra-topbar__contacts {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    min-width: 0;
+  }
+
+  .zifra-wpmenu .zifra-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--zifra-muted);
+    white-space: nowrap;
+    transition: color 0.25s ease;
+  }
+
+  .zifra-wpmenu .zifra-contact svg {
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .zifra-wpmenu .zifra-contact:hover {
+    color: var(--zifra-cream);
+  }
+
+  .zifra-wpmenu .zifra-contact--address {
+    min-width: 0;
+  }
+
+  .zifra-wpmenu .zifra-contact--address span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .zifra-wpmenu .zifra-topbar__actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+  }
+
+  .zifra-wpmenu .zifra-eios {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 28px;
+    padding: 0 12px 0 10px;
+    border-radius: 999px;
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    background: transparent;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+
+  .zifra-wpmenu .zifra-eios svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .zifra-wpmenu .zifra-eios:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .zifra-wpmenu[data-theme="light"] .zifra-eios {
+    color: var(--zifra-cream);
+    border-color: var(--zifra-cream);
+  }
+
+  .zifra-wpmenu[data-theme="light"] .zifra-eios:hover {
+    background: rgba(28, 23, 20, 0.08);
+  }
+
+  .zifra-wpmenu .zifra-socials {
+    display: flex;
+    gap: 6px;
+  }
+
+  .zifra-wpmenu .zifra-social {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 50%;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .zifra-wpmenu .zifra-social svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .zifra-wpmenu .zifra-social:hover {
+    transform: translateY(-2px);
+  }
+
+  .zifra-wpmenu .zifra-social--max:hover { box-shadow: 0 8px 18px rgba(71, 26, 255, 0.42); }
+  .zifra-wpmenu .zifra-social--vk:hover { box-shadow: 0 8px 18px rgba(0, 119, 255, 0.38); }
+  .zifra-wpmenu .zifra-social--tg:hover { box-shadow: 0 8px 18px rgba(42, 171, 238, 0.38); }
+
+  /* Header */
+  .zifra-wpmenu .zifra-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: transparent;
+  }
+
+  .zifra-wpmenu .zifra-header::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: calc(100% + 108px);
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(var(--zifra-bg-rgb), calc(var(--zifra-glass, 0) * 0.72)) 0%,
+      rgba(var(--zifra-bg-rgb), calc(var(--zifra-glass, 0) * 0.38)) 58%,
+      rgba(var(--zifra-bg-rgb), calc(var(--zifra-glass, 0) * 0.08)) 82%,
+      transparent 100%
+    );
+    backdrop-filter: blur(calc(var(--zifra-glass, 0) * 24px)) saturate(calc(1 + var(--zifra-glass, 0) * 0.4));
+    -webkit-backdrop-filter: blur(calc(var(--zifra-glass, 0) * 24px)) saturate(calc(1 + var(--zifra-glass, 0) * 0.4));
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      #000 0%,
+      #000 calc(100% - 108px),
+      rgba(0, 0, 0, 0.7) calc(100% - 72px),
+      rgba(0, 0, 0, 0.28) calc(100% - 32px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      180deg,
+      #000 0%,
+      #000 calc(100% - 108px),
+      rgba(0, 0, 0, 0.7) calc(100% - 72px),
+      rgba(0, 0, 0, 0.28) calc(100% - 32px),
+      transparent 100%
+    );
+  }
+
+  @media (max-width: 860px), (hover: none), (pointer: coarse) {
+    .zifra-wpmenu .zifra-header::before {
+      backdrop-filter: blur(calc(var(--zifra-glass, 0) * 10px)) saturate(calc(1 + var(--zifra-glass, 0) * 0.25));
+      -webkit-backdrop-filter: blur(calc(var(--zifra-glass, 0) * 10px)) saturate(calc(1 + var(--zifra-glass, 0) * 0.25));
+    }
+  }
+
+  .zifra-wpmenu .zifra-header__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1440px;
+    min-height: var(--zifra-header-h);
+    margin: 0 auto;
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .zifra-wpmenu .zifra-logo {
+    flex: 0 0 auto;
+    display: block;
+    height: 112px;
+    transition: transform 0.35s ease;
+  }
+
+  .zifra-wpmenu .zifra-logo img {
+    height: 112px;
+    width: auto;
+    mix-blend-mode: screen;
+  }
+
+  .zifra-wpmenu[data-theme="light"] .zifra-logo img {
+    mix-blend-mode: multiply;
+  }
+
+  .zifra-wpmenu .zifra-logo:hover {
+    transform: translateY(-2px) scale(1.03);
+  }
+
+  .zifra-wpmenu .zifra-nav {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .zifra-wpmenu .zifra-nav__rows {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .zifra-wpmenu .zifra-nav__list {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  .zifra-wpmenu .zifra-nav__list + .zifra-nav__list {
+    margin-top: 0 !important;
+  }
+
+  .zifra-wpmenu .zifra-nav__list > li {
+    position: relative;
+    flex: 0 0 auto;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  .zifra-wpmenu .zifra-nav__list > li > a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--zifra-nav-glass-border);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--zifra-text-soft);
+    line-height: 1.2;
+    white-space: nowrap;
+    background:
+      linear-gradient(135deg, var(--zifra-nav-glass-sheen) 0%, transparent 55%),
+      var(--zifra-nav-glass);
+    backdrop-filter: blur(18px) saturate(1.8);
+    -webkit-backdrop-filter: blur(18px) saturate(1.8);
+    box-shadow:
+      inset 0 1px 0 var(--zifra-nav-glass-highlight),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+      var(--zifra-nav-glass-shadow);
+    isolation: isolate;
+    transition: color 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+  }
+
+  .zifra-wpmenu .zifra-has-sub > a::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg) translateY(-1px);
+    opacity: 0.7;
+  }
+
+  .zifra-wpmenu .zifra-nav__list > li > a:hover,
+  .zifra-wpmenu .zifra-nav__list > li:focus-within > a,
+  .zifra-wpmenu .zifra-has-sub.is-open > a {
+    color: var(--zifra-cream);
+    background:
+      linear-gradient(135deg, var(--zifra-nav-glass-sheen-hover) 0%, transparent 58%),
+      var(--zifra-nav-glass-hover);
+    border-color: color-mix(in srgb, var(--zifra-nav-glass-border) 80%, white);
+    box-shadow:
+      inset 0 1px 0 var(--zifra-nav-glass-highlight),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.06),
+      var(--zifra-nav-glass-hover-shadow);
+    transform: translateY(-1px);
+  }
+
+  .zifra-wpmenu .zifra-nav__list > li > a[aria-current="page"],
+  .zifra-wpmenu .zifra-nav__list > li > a.is-active {
+    color: var(--zifra-cream);
+    border-color: color-mix(in srgb, var(--zifra-magenta) 58%, var(--zifra-nav-glass-border));
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--zifra-magenta) 28%, transparent) 0%, transparent 62%),
+      var(--zifra-nav-glass-hover);
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--zifra-magenta) 35%, var(--zifra-nav-glass-highlight)),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+      0 0 0 1px color-mix(in srgb, var(--zifra-magenta) 22%, transparent),
+      0 10px 26px color-mix(in srgb, var(--zifra-magenta) 20%, transparent);
+  }
+
+  .zifra-wpmenu .zifra-nav__list > li > a[aria-current="page"]::before,
+  .zifra-wpmenu .zifra-nav__list > li > a.is-active::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 5px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--zifra-magenta), color-mix(in srgb, var(--zifra-cyan) 70%, var(--zifra-magenta)));
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  .zifra-wpmenu .zifra-sub {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 260px;
+    padding: 8px;
+    border-radius: 18px;
+    border: 1px solid var(--zifra-nav-glass-border);
+    background:
+      linear-gradient(135deg, var(--zifra-nav-glass-sheen) 0%, transparent 52%),
+      color-mix(in srgb, var(--zifra-panel) 92%, transparent);
+    backdrop-filter: blur(32px) saturate(1.6);
+    -webkit-backdrop-filter: blur(32px) saturate(1.6);
+    box-shadow:
+      inset 0 1px 0 var(--zifra-nav-glass-highlight),
+      var(--zifra-shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 5;
+  }
+
+  .zifra-wpmenu .zifra-has-sub:hover .zifra-sub,
+  .zifra-wpmenu .zifra-has-sub:focus-within .zifra-sub,
+  .zifra-wpmenu .zifra-has-sub.is-open .zifra-sub {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .zifra-wpmenu .zifra-sub a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--zifra-text-soft);
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+
+  .zifra-wpmenu .zifra-sub a:hover {
+    background: linear-gradient(90deg, rgba(255, 61, 154, 0.14), rgba(62, 199, 255, 0.1));
+    color: var(--zifra-cream);
+    transform: translateX(3px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .zifra-wpmenu .zifra-burger {
+    display: none;
+    width: 44px;
+    height: 44px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+    border-radius: 14px;
+    border: 1px solid var(--zifra-nav-glass-border);
+    background:
+      linear-gradient(135deg, var(--zifra-nav-glass-sheen) 0%, transparent 55%),
+      var(--zifra-nav-glass);
+    backdrop-filter: blur(18px) saturate(1.8);
+    -webkit-backdrop-filter: blur(18px) saturate(1.8);
+    box-shadow:
+      inset 0 1px 0 var(--zifra-nav-glass-highlight),
+      var(--zifra-nav-glass-shadow);
+  }
+
+  .zifra-wpmenu .zifra-burger span {
+    display: block;
+    width: 18px;
+    height: 1.5px;
+    background: var(--zifra-cream);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .zifra-wpmenu .zifra-burger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .zifra-wpmenu .zifra-burger.is-open span:nth-child(2) { opacity: 0; }
+  .zifra-wpmenu .zifra-burger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* ≤1520: burger panel */
+  @media (max-width: 1520px) {
+    .zifra-wpmenu .zifra-nav {
+      display: none;
+    }
+
+    .zifra-wpmenu .zifra-burger {
+      display: flex;
+    }
+
+    .zifra-wpmenu.is-menu-open .zifra-nav {
+      display: block;
+      position: fixed;
+      top: calc(var(--zifra-topbar-h) + var(--zifra-header-h));
+      right: 12px;
+      bottom: 12px;
+      left: 12px;
+      width: auto;
+      max-width: none;
+      padding: 14px;
+      border-radius: 24px;
+      border: 1px solid var(--zifra-nav-glass-border);
+      background:
+        linear-gradient(135deg, var(--zifra-nav-glass-sheen) 0%, transparent 48%),
+        var(--zifra-menu-bg);
+      backdrop-filter: blur(28px) saturate(1.8);
+      -webkit-backdrop-filter: blur(28px) saturate(1.8);
+      box-shadow:
+        inset 0 1px 0 var(--zifra-nav-glass-highlight),
+        var(--zifra-shadow-lg);
+      overflow-x: hidden;
+      overflow-y: auto;
+      z-index: 80;
+    }
+
+    .zifra-wpmenu .zifra-nav__rows {
+      align-items: stretch;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .zifra-wpmenu .zifra-nav__list {
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .zifra-wpmenu .zifra-nav__list > li {
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .zifra-wpmenu .zifra-nav__list > li > a {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      min-height: 52px;
+      justify-content: space-between;
+      padding: 16px 18px;
+      font-size: 18px;
+      white-space: normal;
+      text-align: left;
+      line-height: 1.3;
+      overflow-wrap: break-word;
+      border-radius: 16px;
+    }
+
+    .zifra-wpmenu .zifra-has-sub > a::after {
+      width: 8px;
+      height: 8px;
+    }
+
+    .zifra-wpmenu .zifra-sub {
+      position: static;
+      min-width: 0;
+      max-width: 100%;
+      margin: 8px 0 10px 14px;
+      padding: 6px 6px 6px 8px;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      display: none;
+      background: var(--zifra-fill-soft);
+      box-shadow: none;
+    }
+
+    .zifra-wpmenu .zifra-sub a {
+      padding: 14px 16px;
+      font-size: 16px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+    }
+
+    .zifra-wpmenu .zifra-sub a:hover {
+      transform: none;
+    }
+
+    .zifra-wpmenu .zifra-has-sub.is-open .zifra-sub {
+      display: block;
+    }
+  }
+
+  /* ≤860: compact topbar */
+  @media (max-width: 860px) {
+    .zifra-wpmenu {
+      --zifra-header-h: 64px;
+      --zifra-topbar-h: 86px;
+    }
+
+    .zifra-wpmenu .zifra-topbar {
+      display: block;
+      height: auto;
+      min-height: 0;
+      overflow: visible;
+      border-bottom: 0;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      padding: max(10px, env(safe-area-inset-top, 0px)) 16px 8px;
+    }
+
+    .zifra-wpmenu .zifra-topbar__inner,
+    .zifra-wpmenu .zifra-header__inner {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .zifra-wpmenu .zifra-topbar__inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      height: auto;
+      min-width: 0;
+      padding: 10px 12px;
+      border-radius: 22px;
+      border: 1px solid var(--zifra-line);
+      background: var(--zifra-panel);
+      backdrop-filter: blur(18px) saturate(1.3);
+      -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    }
+
+    .zifra-wpmenu .zifra-topbar__contacts {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 2px;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .zifra-wpmenu .zifra-contact {
+      max-width: 100%;
+      font-size: 13px;
+      padding: 1px 0;
+    }
+
+    .zifra-wpmenu .zifra-contact span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .zifra-wpmenu .zifra-contact svg {
+      width: 15px;
+      height: 15px;
+      flex-basis: 15px;
+    }
+
+    .zifra-wpmenu .zifra-contact--address {
+      display: none;
+    }
+
+    .zifra-wpmenu .zifra-topbar__actions {
+      gap: 6px;
+    }
+
+    .zifra-wpmenu .zifra-eios span {
+      display: none;
+    }
+
+    .zifra-wpmenu .zifra-eios,
+    .zifra-wpmenu .zifra-social {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .zifra-wpmenu .zifra-eios {
+      border-radius: 999px;
+    }
+
+    .zifra-wpmenu .zifra-eios svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .zifra-wpmenu .zifra-logo,
+    .zifra-wpmenu .zifra-logo img {
+      height: 56px;
+    }
+
+    .zifra-wpmenu.is-menu-open .zifra-nav {
+      top: calc(var(--zifra-topbar-h) + var(--zifra-header-h));
+    }
+  }
+</style>
+
+<div class="zifra-wpmenu" data-theme="dark" data-zifra-chrome>
+  <div class="zifra-topbar">
+    <div class="zifra-topbar__inner">
+      <div class="zifra-topbar__contacts">
+        <a class="zifra-contact" href="tel:+79230349991">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.6h2.4l1.2 4.2-1.8 1.2a12.6 12.6 0 0 0 5.4 5.4l1.2-1.8 4.2 1.2v2.4c0 .7-.3 1.3-.8 1.7-.5.5-2.6 2.1-7.2.2C7.2 16.1 4.6 11.6 3.8 8.2c-.6-2.6.8-4.1 1.4-4.6.5-.5 1.2-.8 2-.8Z"/></svg>
+          <span>8-923-034-99-91</span>
+        </a>
+        <a class="zifra-contact" href="mailto:zifra42@mail.ru">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h16v11H4v-11Zm0 0 8 6.2L20 6.5"/></svg>
+          <span>zifra42@mail.ru</span>
+        </a>
+        <span class="zifra-contact zifra-contact--address">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c3.6 0 6.5 2.9 6.5 6.5 0 4.6-6.5 10.5-6.5 10.5S5.5 14.6 5.5 10A6.5 6.5 0 0 1 12 3.5Zm0 4.4a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Z"/></svg>
+          <span>ул. Николая Островского, 12, Кемерово, Кемеровская обл., 650000</span>
+        </span>
+      </div>
+
+      <div class="zifra-topbar__actions">
+        <div class="zifra-socials" aria-label="Социальные сети">
+          <a class="zifra-social zifra-social--max" href="https://web.max.ru/-72495269761172" target="_blank" rel="noopener noreferrer" aria-label="MAX" title="MAX">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <defs>
+                <linearGradient id="zifra-wpmenu-max-g" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#471AFF"/>
+                  <stop offset="1" stop-color="#9500FF"/>
+                </linearGradient>
+              </defs>
+              <circle cx="12" cy="12" r="12" fill="url(#zifra-wpmenu-max-g)"/>
+              <path fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" d="M12.05 6.35c3.2 0 5.75 2.08 5.75 4.75s-2.55 4.75-5.75 4.75c-.7 0-1.36-.1-1.96-.28l-2.94 1.33.62-2.12C6.7 13.9 6.3 12.55 6.3 11.1c0-2.67 2.55-4.75 5.75-4.75Z"/>
+            </svg>
+          </a>
+          <a class="zifra-social zifra-social--vk" href="https://vk.com/zifra42" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" title="ВКонтакте">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="12" fill="#0077FF"/>
+              <path fill="#fff" transform="scale(0.5)" d="M25.54 34.5801C14.6 34.5801 8.3601 27.0801 8.1001 14.6001H13.5801C13.7601 23.7601 17.8 27.6401 21 28.4401V14.6001H26.1602V22.5001C29.3202 22.1601 32.6398 18.5601 33.7598 14.6001H38.9199C38.0599 19.4801 34.4599 23.0801 31.8999 24.5601C34.4599 25.7601 38.5601 28.9001 40.1201 34.5801H34.4399C33.2199 30.7801 30.1802 27.8401 26.1602 27.4401V34.5801H25.54Z"/>
+            </svg>
+          </a>
+          <a class="zifra-social zifra-social--tg" href="https://t.me/zifra42" target="_blank" rel="noopener noreferrer" aria-label="Telegram" title="Telegram">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="12" fill="#2AABEE"/>
+              <path fill="#fff" d="M5.42 11.78 16.95 7.38c.54-.21 1.06.14.87.84L15.84 17.5c-.13.62-.54.79-1.1.49l-3.05-2.25-1.46 1.41c-.16.16-.3.3-.62.3l.22-3.16 5.76-5.2c.25-.22.04-.34-.17-.13l-7.18 4.52-2.64-.82c-.6-.19-.61-.6-.18-.78Z"/>
+            </svg>
+          </a>
+        </div>
+
+        <a class="zifra-eios" href="https://j.zifra42.ru/dist/" target="_blank" rel="noopener noreferrer" aria-label="Вход в ЭИОС">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14.2 4.5h3.3A2 2 0 0 1 19.5 6.5v11a2 2 0 0 1-2 2h-3.3"/>
+            <path d="M4.8 12h9.4"/>
+            <path d="m10.8 8.2 3.8 3.8-3.8 3.8"/>
+          </svg>
+          <span>Вход в ЭИОС</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <header class="zifra-header">
+    <div class="zifra-header__inner">
+      <a class="zifra-logo" href="https://zifra42.ru/" aria-label="ЦИФРА — на главную">
+        <img src="https://zifra42.ru/newzifra/assets/logo.png" alt="ЦИФРА" width="112" height="112">
+      </a>
+
+      <nav class="zifra-nav" id="zifra-wpmenu-nav" aria-label="Основное меню">
+        <div class="zifra-nav__rows">
+          <ul class="zifra-nav__list">
+            <li><a href="https://zifra42.ru/newzifra/pages/info/">О цифре</a></li>
+            <li class="zifra-has-sub">
+              <a href="https://zifra42.ru/сведения-об-образовательной-организации/" aria-expanded="false">Сведения об образовательной организации</a>
+              <ul class="zifra-sub">
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/">Основные сведения</a></li>
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/структура-и-органы-управления-образо/">Структура и органы управления образовательной организацией</a></li>
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/документы/">Документы</a></li>
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/образование/">Образование</a></li>
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/образовательные-стандарты/">Образовательные стандарты</a></li>
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/руководство-и-педагогический-состав/">Руководство</a></li>
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/педагогический-состав/">Педагогический состав</a></li>
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/материально-техническое-обеспечение/">Материально-техническое обеспечение и оснащенность образовательного процесса</a></li>
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/платные-образовательные-услуги/">Платные образовательные услуги</a></li>
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/стипендии-и-иные-виды-материальной-по/">Стипендии и иные виды материальной поддержки</a></li>
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/финансово-хозяйственная-деятельност/">Финансово-хозяйственная деятельность</a></li>
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/вакантные-места-для-приёма-перевода/">Вакантные места для приема (перевода)</a></li>
+                <li><a href="https://zifra42.ru/сведения-об-образовательной-организации/международное-сотрудничество/">Международное сотрудничество</a></li>
+                <li><a href="https://zifra42.ru/newzifra/pages/vsoko/">Внутренняя система оценки качества образования (ВСОКО)</a></li>
+              </ul>
+            </li>
+            <li><a href="https://zifra42.ru/поступить/">Поступить</a></li>
+            <li class="zifra-has-sub">
+              <a href="https://zifra42.ru/студентам/" aria-expanded="false">Студентам</a>
+              <ul class="zifra-sub">
+                <li><a href="https://zifra42.ru/newzifra/pages/ochnoe/">Очное отделение</a></li>
+                <li><a href="https://zifra42.ru/newzifra/pages/zaochnoe/">Заочное отделение</a></li>
+                <li><a href="https://zifra42.ru/студентам/образовательное-кредитование/">Образовательное кредитование</a></li>
+                <li><a href="https://zifra42.ru/newzifra/pages/trudoustroystvo/">Практика и трудоустройство</a></li>
+              </ul>
+            </li>
+            <li><a href="https://zifra42.ru/newzifra/pages/bezopasnost/">Комплексная безопасность</a></li>
+            <li><a href="https://zifra42.ru/newzifra/pages/biblioteka/">Библиотека</a></li>
+          </ul>
+          <ul class="zifra-nav__list">
+            <li class="zifra-has-sub">
+              <a href="https://zifra42.ru/электронное-обучение/" aria-expanded="false">Электронное обучение</a>
+              <ul class="zifra-sub">
+                <li><a href="https://zifra42.ru/newzifra/pages/rasp/">Изменения в расписании занятий</a></li>
+                <li><a href="https://j.zifra42.ru/dist/" target="_blank" rel="noopener noreferrer">ЭИОС</a></li>
+                <li><a href="https://zifra42.ru/электронное-обучение/фгис-моя-школа/">ФГИС «Моя школа»</a></li>
+              </ul>
+            </li>
+            <li><a href="https://zifra42.ru/newzifra/pages/dpo/">Дополнительное образование</a></li>
+            <li><a href="https://zifra42.ru/профориентационные-форматы/">Профориентационная работа</a></li>
+            <li class="zifra-has-sub">
+              <a href="https://zifra42.ru/newzifra/pages/spravka-nalog/" aria-expanded="false">Виртуальная приемная</a>
+              <ul class="zifra-sub">
+                <li><a href="https://zifra42.ru/newzifra/pages/spravka-nalog/">Заявление на получение справки об оплате образовательных услуг для предоставления в налоговый орган</a></li>
+              </ul>
+            </li>
+            <li><a href="https://zifra42.ru/newzifra/pages/celevoe/">Целевое обучение</a></li>
+            <li><a href="https://zifra42.ru/newzifra/pages/contacts/">Контакты</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <button class="zifra-burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="zifra-wpmenu-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+</div>
+
+<script>
+(function () {
+  var root = document.querySelector("[data-zifra-chrome]");
+  if (!root) return;
+
+  var header = root.querySelector(".zifra-header");
+  var burger = root.querySelector(".zifra-burger");
+  var nav = root.querySelector(".zifra-nav");
+  var glassTicking = false;
+
+  function applyGlass() {
+    if (!header) return;
+    var y = window.scrollY || window.pageYOffset || 0;
+    var glass = Math.min(1, y / 160);
+    header.classList.toggle("is-stuck", y > 8);
+    root.style.setProperty("--zifra-glass", glass.toFixed(3));
+    glassTicking = false;
+  }
+
+  window.addEventListener("scroll", function () {
+    if (!header || glassTicking) return;
+    glassTicking = true;
+    requestAnimationFrame(applyGlass);
+  }, { passive: true });
+  applyGlass();
+
+  if (!burger || !nav) return;
+
+  function setMenuOpen(open) {
+    root.classList.toggle("is-menu-open", open);
+    document.body.classList.toggle("zifra-wpmenu-open", open);
+    burger.classList.toggle("is-open", open);
+    burger.setAttribute("aria-expanded", String(open));
+    burger.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
+  }
+
+  burger.addEventListener("click", function () {
+    setMenuOpen(!root.classList.contains("is-menu-open"));
+  });
+
+  root.querySelectorAll(".zifra-has-sub > a").forEach(function (trigger) {
+    trigger.addEventListener("click", function (event) {
+      var mobile = window.matchMedia("(max-width: 1520px)").matches;
+      if (mobile) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      var item = trigger.parentElement;
+      var nested = item.classList.toggle("is-open");
+      trigger.setAttribute("aria-expanded", String(nested));
+    });
+  });
+
+  nav.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      if (!root.classList.contains("is-menu-open")) return;
+      if (link.parentElement && link.parentElement.classList.contains("zifra-has-sub")) return;
+      setMenuOpen(false);
+    });
+  });
+
+  document.addEventListener("click", function (event) {
+    if (!root.classList.contains("is-menu-open")) return;
+    var target = event.target;
+    if (!(target instanceof Node)) return;
+    if (nav.contains(target) || burger.contains(target)) return;
+    setMenuOpen(false);
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && root.classList.contains("is-menu-open")) {
+      setMenuOpen(false);
+    }
+  });
+})();
+</script>

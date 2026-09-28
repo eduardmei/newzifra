@@ -1,0 +1,242 @@
+/* ---------- Справка для налоговой ---------- */
+
+.nalog-page {
+  display: grid;
+  gap: 22px;
+  width: 100%;
+  max-width: none;
+}
+
+.nalog-page__head {
+  display: grid;
+  gap: 12px;
+  max-width: 62ch;
+}
+
+.nalog-page .about-title {
+  max-width: 22ch;
+  margin: 0;
+}
+
+.nalog-page__lead {
+  margin: 0;
+  max-width: 54ch;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.nalog-notice {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  padding: 20px 20px 18px;
+  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--cyan) 28%, var(--nav-glass-border));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--cyan) 12%, transparent) 0%, transparent 58%),
+    var(--nav-glass);
+  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  box-shadow:
+    inset 0 1px 0 var(--nav-glass-highlight),
+    var(--nav-glass-shadow);
+}
+
+.nalog-notice__top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nalog-notice__badge {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--cyan) 40%, transparent);
+  background: color-mix(in srgb, var(--cyan) 16%, transparent);
+  color: var(--heading);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.nalog-notice__title {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: clamp(16px, 1.8vw, 18px);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--heading);
+}
+
+.nalog-notice__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  counter-reset: nalog-item;
+}
+
+.nalog-notice__list li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  width: 100%;
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--cream) 4%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cream) 8%, transparent);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  counter-increment: nalog-item;
+}
+
+.nalog-notice__list li::before {
+  content: counter(nalog-item);
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--magenta) 18%, transparent);
+  color: var(--heading);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.nalog-notice__text {
+  min-width: 0;
+  display: block;
+}
+
+.nalog-notice__doc {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 560px;
+  margin-top: 2px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--nav-glass-border);
+  background:
+    linear-gradient(135deg, var(--nav-glass-sheen) 0%, transparent 55%),
+    var(--nav-glass);
+  color: var(--heading);
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.nalog-notice__doc:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--magenta) 40%, var(--nav-glass-border));
+  background:
+    linear-gradient(135deg, var(--nav-glass-sheen-hover) 0%, transparent 58%),
+    var(--nav-glass-hover);
+  color: var(--cream);
+}
+
+.nalog-notice__doc-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--magenta) 18%, transparent);
+  color: var(--magenta);
+}
+
+.nalog-notice__doc-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nalog-notice__doc-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.nalog-notice__meta {
+  flex: 0 0 auto;
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--cream) 14%, transparent);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.nalog-notice__star {
+  color: var(--magenta);
+  font-weight: 700;
+}
+
+.nalog-form {
+  width: 100%;
+  overflow: hidden;
+  padding: 12px;
+  border-radius: 22px;
+  border: 1px solid var(--nav-glass-border);
+  background:
+    linear-gradient(135deg, var(--nav-glass-sheen) 0%, transparent 52%),
+    color-mix(in srgb, var(--panel) 55%, transparent);
+  backdrop-filter: blur(22px) saturate(1.7);
+  -webkit-backdrop-filter: blur(22px) saturate(1.7);
+  box-shadow:
+    inset 0 1px 0 var(--nav-glass-highlight),
+    var(--nav-glass-shadow);
+}
+
+.nalog-form__frame {
+  display: block;
+  width: 100%;
+  min-height: 980px;
+  height: 1100px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color-scheme: light;
+}
+
+@media (max-width: 720px) {
+  .nalog-notice {
+    padding: 16px;
+  }
+
+  .nalog-notice__list li {
+    padding: 10px 12px;
+    font-size: 13.5px;
+  }
+
+  .nalog-notice__doc {
+    max-width: none;
+  }
+
+  .nalog-form__frame {
+    min-height: 860px;
+    height: 960px;
+  }
+}

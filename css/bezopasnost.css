@@ -1,0 +1,191 @@
+/* ---------- Комплексная безопасность ---------- */
+
+.dept-docs--security .about-title {
+  max-width: 22ch;
+}
+
+.dept-docs--security {
+  gap: 28px;
+}
+
+.sec-block {
+  display: grid;
+  gap: 12px;
+}
+
+.sec-military {
+  gap: 22px;
+}
+
+.sec-military__head {
+  display: grid;
+  gap: 12px;
+  max-width: 62ch;
+}
+
+.sec-military__title {
+  max-width: 28ch;
+  margin: 0;
+  font-size: clamp(22px, 3.2vw, 34px);
+}
+
+.sec-military__lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.sec-military__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.sec-military__panel {
+  display: grid;
+  gap: 16px;
+  padding: 20px 20px 18px;
+  border-radius: 22px;
+  border: 1px solid var(--nav-glass-border);
+  background:
+    linear-gradient(135deg, var(--nav-glass-sheen) 0%, transparent 55%),
+    var(--nav-glass);
+  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  box-shadow:
+    inset 0 1px 0 var(--nav-glass-highlight),
+    var(--nav-glass-shadow);
+}
+
+.sec-military__panel:not(.sec-military__panel--docs) .sec-military__list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 10px;
+}
+
+.sec-military__panel-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sec-military__badge {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--magenta) 35%, transparent);
+  background: color-mix(in srgb, var(--magenta) 16%, transparent);
+  color: var(--heading);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.sec-military__panel-title {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: clamp(16px, 1.8vw, 18px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--heading);
+}
+
+.sec-military__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.sec-military__list li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--cream) 4%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cream) 8%, transparent);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.sec-military__list li::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--magenta), color-mix(in srgb, var(--cyan) 55%, var(--magenta)));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--magenta) 16%, transparent);
+}
+
+.sec-military__list--cols {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 10px;
+}
+
+.sec-military__note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--cyan) 28%, var(--nav-glass-border));
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--cyan) 12%, transparent) 0%, transparent 60%),
+    var(--nav-glass);
+  color: var(--heading);
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.sec-military__note-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cyan) 18%, transparent);
+}
+
+.sec-military__note-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--cyan);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 980px) {
+  .sec-military__panel:not(.sec-military__panel--docs) .sec-military__list,
+  .sec-military__list--cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .sec-military__panel {
+    padding: 16px;
+  }
+
+  .sec-military__list li {
+    padding: 9px 10px;
+    font-size: 13.5px;
+  }
+}

@@ -1,0 +1,16 @@
+<?php
+/**
+ * Локальные переопределения (не коммитить секреты).
+ *
+ * // Сайт в корне домена:
+ * // define( 'ZIFRA_BASE_HREF', '/' );
+ *
+ * // Сайт в подпапке:
+ * // define( 'ZIFRA_BASE_HREF', '/newzifra/' );
+ *
+ * // Публичный origin для canonical / OG / sitemap:
+ * // define( 'ZIFRA_SITE_ORIGIN', 'https://zifra42.ru' );
+ *
+ * // Путь к WordPress (для Formidable / новостей):
+ * // define( 'ZIFRA_WP_LOAD', 'C:/path/to/wp-load.php' );
+ */

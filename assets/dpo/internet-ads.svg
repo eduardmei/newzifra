@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" fill="none">
+  <defs>
+    <linearGradient id="a1" x1="80" y1="40" x2="560" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ff6b32"/><stop offset=".4" stop-color="#ff3d9a"/><stop offset="1" stop-color="#3ec7ff"/>
+    </linearGradient>
+    <radialGradient id="aglow" cx="55%" cy="40%" r="50%">
+      <stop stop-color="#ff6b32" stop-opacity=".38"/><stop offset="1" stop-color="#050508" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="400" rx="28" fill="#0a0a12"/>
+  <rect width="640" height="400" rx="28" fill="url(#aglow)"/>
+  <rect x="110" y="100" width="260" height="200" rx="22" stroke="url(#a1)" stroke-width="2.2" fill="#ff3d9a" fill-opacity=".08"/>
+  <path d="M140 150h200M140 190h160M140 230h120" stroke="#f4ece4" stroke-opacity=".3" stroke-width="8" stroke-linecap="round"/>
+  <path d="M420 120l90 160H330l90-160Z" stroke="url(#a1)" stroke-width="2.4" fill="#ff6b32" fill-opacity=".14"/>
+  <circle cx="420" cy="250" r="10" fill="#f4ece4"/>
+  <path d="M420 168v52" stroke="#f4ece4" stroke-width="8" stroke-linecap="round"/>
+  <path d="M500 300c40-20 70-10 90 20" stroke="#3ec7ff" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+  <circle cx="590" cy="320" r="5" fill="#3ec7ff"/>
+</svg>
